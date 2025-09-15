@@ -1,0 +1,92 @@
+# 🚀 AI-Powered Habit & Life Tracker (Frontend)
+
+A **habit & life tracking web application** built with the **MERN stack**.  
+This project focuses on **frontend design** first, implementing a **modern, gamified, and engaging UI** for habit tracking, analytics, and AI-powered suggestions.  
+
+---
+
+## 🎯 Project Goal
+- Help users **build and maintain habits** (study, fitness, coding, etc.).
+- Motivate through **streaks, gamification, and challenges**.
+- Provide **AI-driven suggestions** for consistency improvement.
+- Design with **scalability and real-world product feel** in mind.
+
+---
+
+## 🧩 Features (Frontend MVP)
+
+### ✅ Authentication & Onboarding
+- Login & Signup UI  
+- Profile setup (name, avatar, first habits)  
+
+### ✅ Dashboard
+- Daily habit list (✔️ / ❌ toggle)  
+- Streak highlight (🔥)  
+- AI suggestion widget (placeholder text for now)  
+- Quick action: `+ Add Habit` button  
+
+### ✅ Habit Detail
+- Calendar view for completion logs  
+- Streak counter & statistics  
+- AI insights section  
+
+### ✅ Challenges
+- Challenges list (grid layout)  
+- Challenge detail page with progress bar & leaderboard  
+
+### ✅ Analytics
+- Weekly/monthly completion charts  
+- Consistency score visualization  
+- Longest streak highlights  
+
+### ✅ Profile
+- Avatar, username, XP points  
+- Badges earned (grid)  
+- Settings (dark/light mode, account info)  
+
+---
+
+## 🎨 Design Principles
+- **Clean & minimal**: Focus on user’s progress, no clutter.  
+- **Gamified**: Progress bars, streak flames 🔥, badges.  
+- **Motivational colors**: Green (success), Orange (streaks), Blue (focus).  
+- **Responsive**: Mobile-first, works on all screen sizes.  
+- **Dark/Light mode** (planned).  
+
+---
+
+## 🛠 Tech Stack
+
+### Frontend
+- **React.js** (with Vite or Next.js)  
+- **Tailwind CSS + shadcn/ui** for modern design system  
+- **Lucide-react / Heroicons** for icons  
+- **Recharts / Chart.js** for analytics & graphs  
+- **React Query / Context / Redux** for state management  
+- **React Hook Form + Zod** for form validation  
+
+---
+
+## 🧭 Navigation Flow
+- `/auth` → Login & Signup  
+- `/dashboard` → Main habit tracking page  
+- `/habits/:id` → Habit detail (calendar + insights)  
+- `/challenges` → Challenge list  
+- `/challenges/:id` → Challenge details & leaderboard  
+- `/analytics` → Analytics page  
+- `/profile` → Profile & settings  
+
+---
+
+## 🗂 Project Structure (Frontend)
+
+```bash
+src/
+  components/    # Navbar, Sidebar, HabitCard, ChallengeCard, Modal, ProgressBar
+  pages/         # Dashboard, Habits, Challenges, Analytics, Profile, Auth
+  hooks/         # useAuth, useHabits, useChallenges
+  context/       # AuthContext, HabitContext
+  services/      # api.js (dummy fetchers before backend integration)
+  utils/         # dateUtils.js, streakUtils.js
+  assets/        # icons, images, illustrations
+  styles/        # global.css, tailwind.config.js
