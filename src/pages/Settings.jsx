@@ -177,7 +177,7 @@ const Settings = () => {
                                         <select
                                             value={profile.timezone}
                                             onChange={(e) => handleProfileChange('timezone', e.target.value)}
-                                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-white"
                                         >
                                             {timezones.map((tz) => (
                                                 <option key={tz.value} value={tz.value}>{tz.label}</option>
@@ -193,7 +193,7 @@ const Settings = () => {
                                         <select
                                             value={profile.language}
                                             onChange={(e) => handleProfileChange('language', e.target.value)}
-                                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-white"
                                         >
                                             {languages.map((lang) => (
                                                 <option key={lang.value} value={lang.value}>{lang.label}</option>
