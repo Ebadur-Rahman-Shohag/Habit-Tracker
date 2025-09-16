@@ -103,9 +103,9 @@ const Analytics = () => {
                         </select>
                         <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
                     </div>
-                    <button className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                        <Filter className="w-4 h-4" />
-                        <span>Filters</span>
+                    <button className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-white dark:text-white">
+                        <Filter className="w-4 h-4 text-white dark:text-white" />
+                        <span className="text-white dark:text-white">Filters</span>
                     </button>
                 </div>
             </div>

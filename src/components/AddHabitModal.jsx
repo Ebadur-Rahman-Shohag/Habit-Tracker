@@ -126,8 +126,8 @@ const AddHabitModal = ({ isOpen, onClose, onSave }) => {
                                         type="button"
                                         onClick={() => handleInputChange('category', category.value)}
                                         className={`p-3 rounded-lg border text-center transition-colors ${formData.category === category.value
-                                                ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
-                                                : 'border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
+                                            ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
+                                            : 'border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
                                             }`}
                                     >
                                         <div className="text-lg mb-1">{category.icon}</div>

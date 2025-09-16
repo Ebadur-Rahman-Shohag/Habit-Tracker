@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Search, Filter, Trophy, Users, Clock, Plus } from 'lucide-react';
 import ChallengeCard from '../components/ChallengeCard';
+import AddChallengeModal from '../components/AddChallengeModal';
 
 const Challenges = () => {
     const [activeTab, setActiveTab] = useState('all');
     const [searchTerm, setSearchTerm] = useState('');
+    const [addChallengeModalOpen, setAddChallengeModalOpen] = useState(false);
 
     const challenges = [
         {
@@ -125,8 +127,8 @@ const Challenges = () => {
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
                             className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === tab.id
-                                    ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm'
-                                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                                ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm'
+                                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
                                 }`}
                         >
                             {tab.label}
@@ -137,7 +139,7 @@ const Challenges = () => {
                     ))}
                 </div>
 
-                <button className="flex items-center space-x-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
+                <button className="flex items-center space-x-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors" onClick={() => setAddChallengeModalOpen(true)}>
                     <Plus className="w-4 h-4" />
                     <span>Create Challenge</span>
                 </button>
@@ -155,9 +157,9 @@ const Challenges = () => {
                         className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
                     />
                 </div>
-                <button className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                    <Filter className="w-4 h-4" />
-                    <span>Filters</span>
+                <button className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-white dark:text-white">
+                    <Filter className="w-4 h-4 text-white dark:text-white" />
+                    <span className="text-white dark:text-white">Filters</span>
                 </button>
             </div>
 
@@ -209,6 +211,13 @@ const Challenges = () => {
                     Load More Challenges
                 </button>
             </div>
+
+            {/* Add Challenge Modal */}
+            <AddChallengeModal
+                isOpen={addChallengeModalOpen}
+                onClose={() => setAddChallengeModalOpen(false)}
+                onSave={() => {}}
+            />
         </div>
     );
 };
