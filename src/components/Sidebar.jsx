@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import {
     LayoutDashboard,
     Trophy,
@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 
 const Sidebar = ({ isOpen, onClose, onAddHabit }) => {
+    const location = useLocation();
     const navigation = [
         { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
         { name: 'Challenges', href: '/challenges', icon: Trophy },
@@ -23,6 +24,8 @@ const Sidebar = ({ isOpen, onClose, onAddHabit }) => {
     const bottomNavigation = [
         { name: 'Settings', href: '/settings', icon: Settings },
         { name: 'Help', href: '/help', icon: HelpCircle },
+        { name: 'Login', href: '/auth?mode=login', icon: User, mode: 'login' },
+        { name: 'Signup', href: '/auth?mode=signup', icon: User, mode: 'signup' },
     ];
 
     return (
@@ -41,7 +44,7 @@ const Sidebar = ({ isOpen, onClose, onAddHabit }) => {
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
         lg:translate-x-0
       `}>
-                <div className="flex flex-col h-full">
+                <div className="flex flex-col h-full overflow-y-auto scrollbar-hide">
                     {/* Mobile Header - Only visible on mobile */}
                     <div className="lg:hidden flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
                         <div className="flex items-center space-x-3">
@@ -124,27 +127,37 @@ const Sidebar = ({ isOpen, onClose, onAddHabit }) => {
                         <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider px-3 mb-2">
                             Support
                         </p>
-                        {bottomNavigation.map((item) => (
-                            <NavLink
-                                key={item.name}
-                                to={item.href}
-                                onClick={() => window.innerWidth < 1024 && onClose()}
-                                className={({ isActive }) =>
-                                    `w-full group flex items-center px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 ${isActive
-                                        ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25'
-                                        : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white'
-                                    }`
-                                }
-                            >
-                                {({ isActive }) => (
-                                    <>
-                                        <item.icon className={`mr-3 h-5 w-5 transition-colors ${isActive ? 'text-white' : 'text-gray-500 group-hover:text-gray-700 dark:group-hover:text-gray-300'
-                                            }`} />
-                                        {item.name}
-                                    </>
-                                )}
-                            </NavLink>
-                        ))}
+                        {bottomNavigation.map((item) => {
+                            const isAuthLink = item.href.startsWith('/auth');
+                            let isActive = false;
+                            if (isAuthLink) {
+                                const params = new URLSearchParams(location.search);
+                                isActive = location.pathname === '/auth' && params.get('mode') === item.mode;
+                            }
+                            return (
+                                <NavLink
+                                    key={item.name}
+                                    to={item.href}
+                                    onClick={() => window.innerWidth < 1024 && onClose()}
+                                    className={({ isActive: navIsActive }) =>
+                                        `w-full group flex items-center px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 ${(isAuthLink ? isActive : navIsActive)
+                                            ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25'
+                                            : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white'
+                                        }`
+                                    }
+                                >
+                                    {({ isActive: navIsActive }) => (
+                                        <>
+                                            <item.icon className={`mr-3 h-5 w-5 transition-colors ${(isAuthLink ? isActive : navIsActive)
+                                                    ? 'text-white'
+                                                    : 'text-gray-500 group-hover:text-gray-700 dark:group-hover:text-gray-300'
+                                                }`} />
+                                            {item.name}
+                                        </>
+                                    )}
+                                </NavLink>
+                            );
+                        })}
 
                         {/* Logout Button */}
                         <button className="w-full group flex items-center px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20 hover:text-red-700 dark:hover:text-red-300 mt-2">

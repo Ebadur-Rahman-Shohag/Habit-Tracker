@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { Eye, EyeOff, Mail, Lock, User, ArrowRight } from 'lucide-react';
+import { useSearchParams } from 'react-router-dom';
 
-const Auth = ({ onLogin }) => {
-    const [isLogin, setIsLogin] = useState(true);
+const Auth = () => {
+    const [searchParams] = useSearchParams();
+    const mode = searchParams.get('mode') === 'signup' ? 'signup' : 'login';
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
@@ -10,12 +12,6 @@ const Auth = ({ onLogin }) => {
         password: '',
         confirmPassword: ''
     });
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Simulate authentication
-        onLogin();
-    };
 
     const handleInputChange = (e) => {
         setFormData({
@@ -42,31 +38,12 @@ const Auth = ({ onLogin }) => {
 
                 {/* Auth Card */}
                 <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-8">
-                    {/* Tab Switcher */}
-                    <div className="flex bg-gray-100 dark:bg-gray-700 rounded-lg p-1 mb-8">
-                        <button
-                            onClick={() => setIsLogin(true)}
-                            className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${isLogin
-                                    ? 'bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm'
-                                    : 'text-gray-600 dark:text-gray-400'
-                                }`}
-                        >
-                            Sign In
-                        </button>
-                        <button
-                            onClick={() => setIsLogin(false)}
-                            className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${!isLogin
-                                    ? 'bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm'
-                                    : 'text-gray-600 dark:text-gray-400'
-                                }`}
-                        >
-                            Sign Up
-                        </button>
-                    </div>
-
+                    <h2 className="text-2xl font-bold text-center mb-8 text-gray-900 dark:text-white">
+                        {mode === 'login' ? 'Sign In' : 'Sign Up'}
+                    </h2>
                     {/* Form */}
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                        {!isLogin && (
+                    <form className="space-y-6">
+                        {mode === 'signup' && (
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                     Full Name
@@ -80,7 +57,7 @@ const Auth = ({ onLogin }) => {
                                         onChange={handleInputChange}
                                         className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
                                         placeholder="Enter your full name"
-                                        required={!isLogin}
+                                        required={mode === 'signup'}
                                     />
                                 </div>
                             </div>
@@ -129,7 +106,7 @@ const Auth = ({ onLogin }) => {
                             </div>
                         </div>
 
-                        {!isLogin && (
+                        {mode === 'signup' && (
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                     Confirm Password
@@ -143,13 +120,13 @@ const Auth = ({ onLogin }) => {
                                         onChange={handleInputChange}
                                         className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
                                         placeholder="Confirm your password"
-                                        required={!isLogin}
+                                        required={mode === 'signup'}
                                     />
                                 </div>
                             </div>
                         )}
 
-                        {isLogin && (
+                        {mode === 'login' && (
                             <div className="flex items-center justify-between">
                                 <label className="flex items-center">
                                     <input
@@ -171,7 +148,7 @@ const Auth = ({ onLogin }) => {
                             type="submit"
                             className="w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white py-3 px-4 rounded-lg font-medium transition-all transform hover:scale-[1.02]"
                         >
-                            <span>{isLogin ? 'Sign In' : 'Create Account'}</span>
+                            <span>{mode === 'login' ? 'Sign In' : 'Create Account'}</span>
                             <ArrowRight className="w-4 h-4" />
                         </button>
                     </form>
@@ -205,7 +182,7 @@ const Auth = ({ onLogin }) => {
                     {/* Footer */}
                     <div className="mt-8 text-center">
                         <p className="text-sm text-gray-600 dark:text-gray-400">
-                            By {isLogin ? 'signing in' : 'creating an account'}, you agree to our{' '}
+                            By {mode === 'login' ? 'signing in' : 'creating an account'}, you agree to our{' '}
                             <button className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300">
                                 Terms of Service
                             </button>{' '}
